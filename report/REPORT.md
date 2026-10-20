@@ -2,7 +2,7 @@
 
 **Course:** Machine Learning Operations (MLOps) AIMLCZG523 - Assignment 01  
 **Student:** `VISHAL ANAND` | **ID:** `2025AE05692` (`2025ae05692@wilp.bits-pilani.ac.in`)  
-**Code repository:** `https://github.com/VishalAnand07/MLOps_Assignment_1`  
+**Code repository:** `https://github.com/VishalAnand07/MLOps_Assigment_1_2025AE05692`  
 **Deployed API / access:** `http://localhost:8000/docs` (local Kubernetes LoadBalancer: `http://localhost/docs` or `http://127.0.0.1:8000/docs`)  
 **Demo video:** `https://drive.google.com/file/d/1KbYK9kO4fksSSJSuPxfZTOwOay5oqFNK/view?usp=sharing`
 
@@ -21,7 +21,7 @@ A binary classifier predicts the presence of heart disease from 13 clinical attr
 ## 2. Setup and installation
 
 ```bash
-git clone https://github.com/VishalAnand07/MLOps_Assignment_1 && cd heart-disease-mlops
+git clone https://github.com/VishalAnand07/MLOps_Assigment_1_2025AE05692 && cd heart-disease-mlops
 python -m venv .venv && source .venv/bin/activate        # Python 3.12
 pip install -r requirements.txt
 

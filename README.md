@@ -6,7 +6,7 @@ tested, containerised, Kubernetes-deployable, monitored API.
 - **Student:** `VISHAL ANAND`
 - **BITS ID:** `2025AE05692` (`2025ae05692@wilp.bits-pilani.ac.in`)
 - **Course:** Machine Learning Operations (MLOps) AIMLCZG523 - Assignment 01
-- **GitHub Repository:** [`https://github.com/VishalAnand07/MLOps_Assignment_1`](https://github.com/VishalAnand07/MLOps_Assignment_1)
+- **GitHub Repository:** [`https://github.com/VishalAnand07/MLOps_Assigment_1_2025AE05692`](https://github.com/VishalAnand07/MLOps_Assigment_1_2025AE05692)
 - **Full Report:** [`report/REPORT.pdf`](report/REPORT.pdf) / [`report/REPORT.html`](report/REPORT.html)
 - **Interactive Swagger Docs:** `http://localhost:8000/docs`
 - **Monitoring Stack:** Prometheus (`:9090`) & Grafana (`:3000`, `admin`/`admin`)
