@@ -4,7 +4,7 @@
 **Student:** `VISHAL ANAND` | **ID:** `2025AE05692` (`2025ae05692@wilp.bits-pilani.ac.in`)  
 **Code repository:** `https://github.com/VishalAnand07/MLOps_Assigment_1_2025AE05692`  
 **Deployed API / access:** `http://localhost:8000/docs` (local Kubernetes LoadBalancer: `http://localhost/docs` or `http://127.0.0.1:8000/docs`)  
-**Demo video:** `https://drive.google.com/file/d/1KbYK9kO4fksSSJSuPxfZTOwOay5oqFNK/view?usp=sharing`
+**Demo video:** `https://drive.google.com/file/d/1Ge0n5zKUrra-930hwrPkaRZR9Ma7kfvB/view?usp=sharing`
 
 ## 1. Summary
 
@@ -121,9 +121,9 @@ On the hold-out set the model produced 28 true negatives, 5 false positives, 2 f
 | Nested tuning runs (one per grid candidate) | 28 | hyper-parameters, mean and std of CV ROC-AUC / accuracy / precision / recall |
 | Final run | 1 | selected params, metrics, model registered as `heart-disease-classifier` v1, `metrics.json`, joblib artifact |
 
-![MLflow experiment view](../screenshots/01_mlflow_experiments.png){width=80%}
+![MLflow experiment view](../screenshots/01_mlflow_experiment_tracking.png){width=80%}
 
-![MLflow run comparison](../screenshots/02_mlflow_run_compare.png){width=80%}
+![MLflow run comparison](../screenshots/02_mlflow_model_comparison_metrics.png){width=80%}
 
 ## 6. Model packaging and reproducibility
 
@@ -159,9 +159,9 @@ Two jobs on every push and pull request:
 
 Because the workflow sets `defaults.run.shell: bash` (which runs steps as `bash -eo pipefail`, so a failing command piped into `tee` still fails the step), any lint, test, training or smoke-test error fails the run and leaves the logs as downloadable artifacts.
 
-![Successful workflow run](../screenshots/03_github_actions_run.png){width=80%}
+![Successful workflow run](../screenshots/03_github_actions_ci_pipeline_success.png){width=80%}
 
-![A deliberately broken test makes the pipeline fail](../screenshots/04_github_actions_failure.png){width=80%}
+![A deliberately broken test makes the pipeline fail](../screenshots/04_github_actions_ci_failure_handling.png){width=80%}
 
 ## 8. Containerisation
 
@@ -185,17 +185,17 @@ curl -X POST http://localhost:8000/predict -H 'Content-Type: application/json' -
 {"prediction":0,"label":"no_disease","confidence":0.8504,"probability_disease":0.1496,"model_version":"1.0.0"}
 ```
 
-![docker build](../screenshots/05_docker_build.png){width=75%}
+![docker build](../screenshots/05_docker_multi_stage_image_build.png){width=75%}
 
-![docker run and smoke test](../screenshots/06_docker_run_curl.png){width=75%}
+![docker run and smoke test](../screenshots/06_docker_container_smoke_test.png){width=75%}
 
 ## 9. Kubernetes deployment
 
 Manifests in `k8s/`: `namespace.yaml`, `deployment.yaml` (2 replicas, rolling update with zero unavailable, readiness/liveness probes on `/health`, CPU/memory requests and limits), `service.yaml` (type LoadBalancer), `hpa.yaml` (2-5 pods at 70% CPU) and an optional `ingress.yaml`. `scripts/deploy_k8s.sh` builds the image, loads it into Minikube if present, applies the manifests and waits for the rollout. On a managed cluster (GKE/EKS/AKS) the image is pushed to a registry and the `image:` field changed; the LoadBalancer then receives a public IP.
 
-![kubectl get pods,svc,hpa](../screenshots/07_kubectl_get.png){width=75%}
+![kubectl get pods,svc,hpa](../screenshots/07_k8s_cluster_resources_and_hpa.png){width=75%}
 
-![API reached through the LoadBalancer](../screenshots/08_api_via_loadbalancer.png){width=75%}
+![API reached through the LoadBalancer](../screenshots/08_k8s_service_endpoint_verification.png){width=75%}
 
 ## 10. Monitoring and logging
 
@@ -213,11 +213,11 @@ Manifests in `k8s/`: `namespace.yaml`, `deployment.yaml` (2 replicas, rolling up
 
 Prometheus scrapes the API every 5 s (`monitoring/prometheus.yml` for Docker Compose, a pod-discovery config in `k8s/monitoring/monitoring.yaml` for Kubernetes). A provisioned Grafana dashboard (`monitoring/grafana/dashboards/heart_api.json`) shows request rate, latency percentiles, predictions by class, error rate, mean confidence, model status and total requests. `scripts/generate_traffic.py` replays real dataset rows (plus a few invalid requests) to populate it.
 
-![Prometheus targets](../screenshots/09_prometheus_targets.png){width=75%}
+![Prometheus targets](../screenshots/09_prometheus_active_scrape_targets.png){width=75%}
 
-![Grafana dashboard](../screenshots/10_grafana_dashboard.png){width=75%}
+![Grafana dashboard](../screenshots/10_grafana_production_monitoring_board.png){width=75%}
 
-![Structured request logs](../screenshots/11_api_logs.png){width=75%}
+![Structured request logs](../screenshots/11_structured_json_audit_and_drift_logs.png){width=75%}
 
 ## 11. Architecture
 
@@ -240,3 +240,4 @@ k8s/ (+ monitoring/)   monitoring/ (prometheus, grafana)   .github/workflows/ci.
 Dockerfile  docker-compose.yml  requirements.txt  requirements-api.txt
 screenshots/   report/ (REPORT.md, REPORT.pdf, architecture.png)
 ```
+
